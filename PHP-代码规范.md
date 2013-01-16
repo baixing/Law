@@ -33,7 +33,7 @@ class CodingStandard { // 大括号前面加空格，类名开头字母大写，
     public $number = array(1, 2, 3, 4); // 对于简单数组，可以放一行
 
     // 方法的注释采用双斜线，尽量在一行内完成
-    function foo($i, $list) { // 1.function明后面的(前面没有空格 2.多个参数，如果有逗号，那么逗号后面要有空格
+    function foo($i, $list) { // 1.function名后面的(前面没有空格 2.多个参数，如果有逗号，那么逗号后面要有空格
         for ($j = 0; $j < $i; $j++) { // for后面加空格
             echo "This is no.{$j}, content is {$list[$j]}"; // echo语句不加括号。
 
