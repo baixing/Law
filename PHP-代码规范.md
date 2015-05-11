@@ -60,7 +60,7 @@ $s = new CodingStandard(); // new一个对象，后面必须加括弧
 $s->foo(10, $s->color); // 函数后面的括弧不要有空格，函数里面超过一个参数，逗号后面就要有空格
 CodingStandard::testFunction(); // 静态代码的调用方式唯一，仅限双冒号调用方式
 ```
-php文件不要以 ?> 结尾。
+php文件**不要**以 ?> 结尾。
 
 ### \# 文献
 
