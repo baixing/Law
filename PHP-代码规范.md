@@ -20,17 +20,17 @@ class CodingStandard { // 大括号前面加空格，类名开头字母大写，
     private $attribute; // 属性注释直接注释在后方
 
     // 数组格式
-    public $color = array(
-        '1' => 'red', // 用tab缩进一次
+    public $color = [
+        '1' => 'red', // 用Tab缩进一次
         '2' => 'blue',
         '3' => 'yellow',
-        '4' => array(
+        '4' => [
             '1' => 'green',	// 在前面的数组对齐列之后再tab缩进一次
-            '2' => 'gray'
-        ) // 数组的结尾与声明的变量最前面对齐
-    ); // 数组的结尾与数组变量声明的地方对齐
+            '2' => 'gray', // 最后一个元素也添加逗号
+        ], // 数组的结尾与声明的变量最前面对齐
+    ]; // 数组的结尾与数组变量声明的地方对齐
 
-    public $number = array(1, 2, 3, 4); // 对于简单数组，可以放一行
+    public $number = [1, 2, 3, 4]; // 对于简单数组，可以放一行
 
     // 方法的注释采用双斜线，尽量在一行内完成
     function foo($i, $list) { // 1.function名后面的(前面没有空格 2.多个参数，如果有逗号，那么逗号后面要有空格
@@ -59,8 +59,8 @@ class CodingStandard { // 大括号前面加空格，类名开头字母大写，
 $s = new CodingStandard(); // new一个对象，后面必须加括弧
 $s->foo(10, $s->color); // 函数后面的括弧不要有空格，函数里面超过一个参数，逗号后面就要有空格
 CodingStandard::testFunction(); // 静态代码的调用方式唯一，仅限双冒号调用方式
+// php文件不要以 ?> 结尾
 ```
-php文件不要以 ?> 结尾。
 
 ### \# 文献
 
