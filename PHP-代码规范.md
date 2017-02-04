@@ -111,8 +111,8 @@ abstract class ClassName extends ParentClass implements \ArrayAccess, \Countable
 
 ### 代码注释
 - 注释规范遵循[PHP Doc规范](https://www.phpdoc.org/docs/latest/references/phpdoc/index.html)
-- 所有类注释必须有类描述和owner邮箱
-- 所有核心关键方法、函数注释必须包含描述、参数说明、返回值说明，必须时可以有具体函数逻辑
+- 所有类必须有owner邮箱注释；所有核心类注释必须有类描述和owner邮箱；这里的核心类是指可能会被多处调用到的类及底层的类
+- 所有核心关键方法、函数注释必须包含描述、参数说明、返回值说明，必须时可以有具体函数逻辑；这里的核心关键方法、函数是指可能会被多次调用的方法或核心类中的方法
 - 代码不明确的地方建议增加注释，存在复杂功能逻辑要求有明确的描述性注释
 - 注释可以用中文
 
@@ -482,7 +482,7 @@ $value = implode(
         $uid
     ) 
 );  
-$value = implode(',',array_map(function ($v) { 
+$value = implode(',', array_map(function ($v) { 
     return $v instanceof Node ? $v->id : $v; 
 },$uid));
 ```
