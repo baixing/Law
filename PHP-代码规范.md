@@ -42,7 +42,7 @@
  - 编辑区右侧滚动条最顶部显示绿色的勾，标识代码已整理干净
 
 ### 代码示例
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -67,8 +67,10 @@ abstract class ClassName extends ParentClass implements \ArrayAccess, \Countable
     }
 
     /**
-     * 这个是用来做注释描述的函数
-     * @param int   $arg1 参数1
+     * 这个是用来做注释描述的函数
+     * 下面几行的参数类型描述对齐为建议非强制，phpstorm自动格式化支持这里的对齐，对齐更加直观
+     * 
+     * @param int   $arg1 参数1
      * @param bool  $arg2 参数2
      * @param array $arg3 参数3
      */
@@ -135,7 +137,7 @@ abstract class ClassName extends ParentClass implements \ArrayAccess, \Countable
 - 每行声明必须使用一个use关键词
 - use代码块之后必须有一行空行
 
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -156,7 +158,8 @@ use OtherVendor\OtherPackage\BazClass;
 - extends和implements关键字必须与类名字在一行
 - {放在类名声明末尾同一行，}必须在代码块后面一行
 
-```<?php
+```php
+<?php
 // nanzhimin@baixing.com
 
 namespace Vendor\Package;
@@ -172,7 +175,7 @@ class ClassName extends ParentClass implements \ArrayAccess, \Countable {
 
 - implements列表可以分拆成多行，每个一行；这么做时，第一项必须在下一行，并且之后每行只能有一个接口
 
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -192,7 +195,7 @@ class ClassName extends ParentClass implements
 
 ### 常量
 - 类常量必须使用全部大写，单词间使用_分隔
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -211,7 +214,7 @@ class ClassName {
 - 属性名称不能使用前导_来指示protected或private的可见性
 - 对象类型的属性，需要用如/* @var ClassName $param */的注释指示变量对象类型；这个注释可以写成三行的格式
 
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -231,7 +234,7 @@ class ClassName {
 - 方法内代码块长度不超过2屏幕（80行），最好不超过1屏幕（40行）；超过了要求拆分方法
 - 方法内代码块嵌套层级不超过4级，最好不超过3级；超过了要求重构逻辑或抽象方法
 
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -253,7 +256,7 @@ class ClassName {
 - 参数如果是特定类型的对象的，该参数前显示声明对象类型
 - 方法参数建议不超过5个参数，一般不超过8个参数；如超过了，要求重构函数或以数据、对象作为参数传递
 
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -274,7 +277,7 @@ abstract, final和static
 - 当存在时，abstract和final声明必须在可见性声明之前
 - 当存在时，static声明必须在可见性声明之后
 
-```
+```php
 <?php
 // nanzhimin@baixing.com
 
@@ -295,7 +298,7 @@ abstract class ClassName {
 
 - 方法与函数调用时，方法或函数名与(之间不能有空格，(之后不能有空格，)之前不能有空格。在参数列表中，每个逗号前不能有空格，逗号后必须有一个空格
 
-```
+```php
 <?php
 bar();
 $foo->bar($arg1);
@@ -304,7 +307,7 @@ Foo::bar($arg2, $arg3);
 
 - 参数列表可以被分成多行，每个子序列带一个缩进；当这么做时，列表的第一项必须在下一行，并且之后每行一个参数
 
-```
+```php
 <?php
 $foo->bar(
     $longArgument,
@@ -312,8 +315,62 @@ $foo->bar(
     $muchLongerArgument
 );
 ```
-- 函数或方法调用的)后不直接跟取键值操作
+```php
+<?php
+// 参数换行原则：要么所有参数都在一行，参数要换行就每个参数单独放一行（包括第一个参数也需要单独一行）
+// 可行的写法示例如下：
 
+// 写法一：推荐这种，比较清晰
+$query =  new AndQuery(
+    new Query('type', \Verify\GuaranteedContract::TYPE),
+    new Query('user', $user),
+    new Query('status', EnumVerifyRequest::ACCEPT)
+);
+$vr = findOne('VerifyRequest', $query, ['size' => 20]);
+
+// 写法二：喜欢行数少的同学可能会偏好这种
+$vr = findOne('VerifyRequest', new AndQuery(
+        new Query('type', \Verify\GuaranteedContract::TYPE),
+        new Query('user', $user),
+        new Query('status', EnumVerifyRequest::ACCEPT)
+), ['size' => 20]);
+
+// 写法三：这种也可以，但显得行数比较多，不太推荐
+$vr = findOne(
+        'VerifyRequest', 
+        new AndQuery(
+            new Query('type', \Verify\GuaranteedContract::TYPE),
+            new Query('user', $user),
+            new Query('status', EnumVerifyRequest::ACCEPT)
+        ), 
+        ['size' => 20]
+);
+```
+- 函数或方法调用的)后不直接跟取键值操作
+```php
+<?php
+/* 这种写法不推荐，原因为：
+ * 1. 潜在报notice的可能；这个代码在确保函数返回数组且包含token键值时没问题，
+ *    但哪天有同学觉得需要对$uid做个有效性检查，非法$uid直接返回false或null，
+ *    于是就会出notice，这个是一种潜在的问题，因为我们没法保证代码不会被别人改
+ * 2. 代码写起来没有那么清晰，特别是当函数调用或参数很长时
+ */
+$token = $this->getAccessTokenAndTtl($uid)['token'];
+
+// 推荐以下替代两种写法，中间变量使得函数返回值结果的含义也会更清晰
+
+// 写法一：增加临时变量，适合一次性调用的场景
+$tokenTtl = $this->getAccessTokenAndTtl($uid);
+$token = array_get($tokenTtl, 'token');
+
+// 写法二：增加接口，适合多次调用的场景
+public function getAccessToken($uid) {
+    $tokenTtl = $this->getAccessTokenAndTtl($uid);
+    return array_get($tokenTtl, 'token');
+}
+// 调用时访问新接口
+$token = $this->getAccessToken($uid);
+```
 ### 控制结构的代码基本规范
 
 - 控制关键字后必须有一个空格
@@ -328,7 +385,7 @@ $foo->bar(
 - elseif代替else if，使得看起来是一个关键字
 - 其他格式如下
 
-```
+```php
 <?php
 if ($expr1) {
     // if body
@@ -340,7 +397,7 @@ if ($expr1) {
 ```
 
 ### swith, case
-```
+```php
 <?php
 switch ($expr) {
     case 0:
@@ -373,14 +430,15 @@ do {
 ```
 
 ### for
-```<?php
+```php
+<?php
 for ($i = 0; $i < 10; $i++) {
     // for body
 }
 ```
 
 ### foreach
-```
+```php
 <?php
 foreach ($iterable as $key => $value) {
     // foreach body
@@ -388,7 +446,7 @@ foreach ($iterable as $key => $value) {
 ```
 
 ### try, catch
-```
+```php
 <?php
 try {
     // try body
@@ -405,7 +463,7 @@ try {
 - 其他空格逗号规则与函数定义相同
 - 闭包的各种写法参考如下例子
 
-```
+```php
 <?php
 $closureWithArgs = function ($arg1, $arg2) {
     // body
@@ -415,7 +473,7 @@ $closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
     // body
 };
 ```
-```
+```php
 <?php
 $longArgs_noVars = function (
     $longArgument,
@@ -461,7 +519,7 @@ $shortArgs_longVars = function ($arg) use (
     // body
 };
 ```
-```
+```php
 <?php
 $foo->bar(
     $arg1,
@@ -471,19 +529,19 @@ $foo->bar(
     $arg3
 );
 ```
-```
+```php
 <?php
 $value = implode(
-    ',', 
+    ',',
     array_map(
         function ($v) {
-            return $v instanceof Node ? $v->id : $v; 
-        }, 
+            return $v instanceof Node ? $v->id : $v;
+        },
         $uid
-    ) 
-);  
-$value = implode(',', array_map(function ($v) { 
-    return $v instanceof Node ? $v->id : $v; 
+    )
+);
+$value = implode(',', array_map(function ($v) {
+    return $v instanceof Node ? $v->id : $v;
 },$uid));
 ```
 
