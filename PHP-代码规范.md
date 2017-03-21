@@ -330,20 +330,20 @@ $vr = findOne('VerifyRequest', $query, ['size' => 20]);
 
 // 写法二：喜欢行数少的同学可能会偏好这种
 $vr = findOne('VerifyRequest', new AndQuery(
-        new Query('type', \Verify\GuaranteedContract::TYPE),
-        new Query('user', $user),
-        new Query('status', EnumVerifyRequest::ACCEPT)
+    new Query('type', \Verify\GuaranteedContract::TYPE),
+    new Query('user', $user),
+    new Query('status', EnumVerifyRequest::ACCEPT)
 ), ['size' => 20]);
 
 // 写法三：这种也可以，但显得行数比较多，不太推荐
 $vr = findOne(
-        'VerifyRequest', 
-        new AndQuery(
-            new Query('type', \Verify\GuaranteedContract::TYPE),
-            new Query('user', $user),
-            new Query('status', EnumVerifyRequest::ACCEPT)
-        ), 
-        ['size' => 20]
+    'VerifyRequest', 
+    new AndQuery(
+        new Query('type', \Verify\GuaranteedContract::TYPE),
+        new Query('user', $user),
+        new Query('status', EnumVerifyRequest::ACCEPT)
+    ), 
+    ['size' => 20]
 );
 ```
 - 函数或方法调用的)后不直接跟取键值操作
@@ -482,7 +482,7 @@ $closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
 ```
 ```php
 <?php
-$longArgs_noVars = function (
+$longArgsNoVars = function (
     $longArgument,
     $longerArgument,
     $muchLongerArgument
@@ -498,7 +498,7 @@ $noArgs_longVars = function () use (
     // body
 };
 
-$longArgs_longVars = function (
+$longArgsLongVars = function (
     $longArgument,
     $longerArgument,
     $muchLongerArgument
@@ -510,7 +510,7 @@ $longArgs_longVars = function (
     // body
 };
 
-$longArgs_shortVars = function (
+$longArgsShortVars = function (
     $longArgument,
     $longerArgument,
     $muchLongerArgument
@@ -518,7 +518,7 @@ $longArgs_shortVars = function (
     // body
 };
 
-$shortArgs_longVars = function ($arg) use (
+$shortArgsLongVars = function ($arg) use (
     $longVar1,
     $longerVar2,
     $muchLongerVar3
