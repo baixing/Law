@@ -1,7 +1,7 @@
 ***
 
 ## \# 编码原则
-- 简明易懂；代码是给人看的，不仅仅只是给机器执行的
+- 简明易懂，方便他人修改维护
 - 编码规范，命名风格统一
 - 适当明确的代码注释
 
@@ -391,7 +391,15 @@ if ($expr1) {
 } elseif ($expr2) {
     // elseif body
 } else {
-    // else body;
+    // else body
+}
+
+// 反例
+if ($expr1) {
+    // if body
+} 
+else {
+    // else body
 }
 ```
 
