@@ -552,6 +552,9 @@ $value = implode(',', array_map(function ($v) {
 },$uid));
 ```
 
+### 函数使用
+- 代码可读性考虑，禁用extract、create_function函数
+
 ## \# 修订说明
 - 考虑到目前代码风格不一，结合PSRs规范、原来的百姓网编码规范以及现有代码习惯综合考虑，形成了本套编码规范
 - 本套编码规范与PSRs规范主要区别
