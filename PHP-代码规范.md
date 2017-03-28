@@ -382,6 +382,7 @@ $token = $this->getAccessToken($uid);
 ### if, elseif, else
 
 - elseif代替else if，使得看起来是一个关键字
+- 对于if...return等只包含简单判断的流控制语句，并且书写者认为代码不换行可读性更高的时候，可以不加大括号和换行
 - 其他格式如下
 
 ```php
